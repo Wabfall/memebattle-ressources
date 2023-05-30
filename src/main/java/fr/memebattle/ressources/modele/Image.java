@@ -1,8 +1,20 @@
 package fr.memebattle.ressources.modele;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
+@Document(collection = "images")
 public class Image {
+    @Id
+    private String id;
+
+    @Field("file_name")
     private String fileName;
+
+    @Field("image_bytes")
     private byte[] imageBytes;
+
     private int votes;
 
     public Image() {
@@ -14,7 +26,9 @@ public class Image {
         this.votes = 0;
     }
 
-    // Getters and setters
+    public String getId() {
+        return id;
+    }
 
     public String getFileName() {
         return fileName;

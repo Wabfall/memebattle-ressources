@@ -1,6 +1,5 @@
 package fr.memebattle.ressources.config;
 
-import fr.memebattle.ressources.config.MyWebSocketHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;

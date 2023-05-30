@@ -1,22 +1,27 @@
 package fr.memebattle.ressources.modele;
+
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.ArrayList;
 import java.util.List;
-import fr.memebattle.ressources.modele.Joueur;
 
+@Document(collection = "salons")
 public class Salon {
-  private String id;
+  @Id
+  private ObjectId id;
   private int nombreMaxJoueurs;
   private String gamemode;
-  private List<Joueur> joueurs;
+  private List<ObjectId> joueurs;
 
-  public Salon(String id, int nombreMaxJoueurs, String gamemode) {
+  public Salon(ObjectId id, int nombreMaxJoueurs, String gamemode) {
     this.id = id;
     this.nombreMaxJoueurs = nombreMaxJoueurs;
     this.gamemode = gamemode;
     this.joueurs = new ArrayList<>();
   }
 
-  public String getId() {
+  public ObjectId getId() {
     return id;
   }
 
@@ -32,15 +37,7 @@ public class Salon {
     this.gamemode = gamemode;
   }
 
-  public List<Joueur> getJoueurs() {
+  public List<ObjectId> getJoueurs() {
     return joueurs;
-  }
-
-  public void ajouterJoueur(Joueur joueur) {
-    joueurs.add(joueur);
-  }
-
-  public void supprimerJoueur(Joueur joueur) {
-    joueurs.remove(joueur);
   }
 }

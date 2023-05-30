@@ -13,7 +13,7 @@ import javax.validation.constraints.*;
 /**
  * ReponseRequete
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-30T09:12:01.387469500-04:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-30T12:27:49.618818700-04:00[America/New_York]")
 public class ReponseRequete   {
   @JsonProperty("id")
   private Long id;

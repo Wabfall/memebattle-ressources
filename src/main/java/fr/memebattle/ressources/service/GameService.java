@@ -6,6 +6,7 @@ import fr.memebattle.ressources.modele.api.ReponseRequete;
 import fr.memebattle.ressources.modele.api.RequeteJoueur;
 import fr.memebattle.ressources.repository.JoueurRepository;
 import fr.memebattle.ressources.repository.SalonRepository;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -29,7 +30,9 @@ public class GameService {
     // Exemple de méthode pour créer une salle de jeu
     public Salon creerSalon(String salonName, int maxJoueurs, String gameMode) {
         // Logique pour créer une nouvelle salle de jeu
-        Salon salon = new Salon(salonName, maxJoueurs, gameMode);
+        // Convertir le String en ObjectId
+        ObjectId salonId = new ObjectId(salonName);
+        Salon salon = new Salon(salonId, maxJoueurs, gameMode);
         return salonRepository.save(salon);
     }
 
@@ -41,10 +44,11 @@ public class GameService {
         if (optionalSalon.isPresent()) {
             Salon salon = optionalSalon.get();
             // Créer l'objet Joueur à partir des informations fournies dans requeteJoueur
-            Joueur joueur = new Joueur(requeteJoueur.getPseudo(), requeteJoueur.getPseudo());
+            ObjectId joueurId = new ObjectId(requeteJoueur.getPseudo());
+            Joueur joueur = new Joueur(joueurId, requeteJoueur.getPseudo());
 
             if (salon.getJoueurs().size() < salon.getNombreMaxJoueurs()) {
-                salon.ajouterJoueur(joueur);
+                salon.getJoueurs().add(joueur.getId());
                 salonRepository.save(salon);
                 return joueur;
             }

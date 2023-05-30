@@ -1,14 +1,21 @@
 package fr.memebattle.ressources.modele;
+
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "joueurs")
 public class Joueur {
-  private String id;
+  @Id
+  private ObjectId id;
   private String pseudo;
 
-  public Joueur(String id, String pseudo) {
+  public Joueur(ObjectId id, String pseudo) {
     this.id = id;
     this.pseudo = pseudo;
   }
 
-  public String getId() {
+  public ObjectId getId() {
     return id;
   }
 

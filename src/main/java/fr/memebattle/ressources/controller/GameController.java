@@ -1,6 +1,8 @@
 package fr.memebattle.ressources.controller;
 
-import fr.memebattle.ressources.modele.*;
+import fr.memebattle.ressources.modele.Joueur;
+import fr.memebattle.ressources.modele.RequeteSalon;
+import fr.memebattle.ressources.modele.Salon;
 import fr.memebattle.ressources.modele.api.ReponseRequete;
 import fr.memebattle.ressources.modele.api.RequeteJoueur;
 import fr.memebattle.ressources.service.GameService;
