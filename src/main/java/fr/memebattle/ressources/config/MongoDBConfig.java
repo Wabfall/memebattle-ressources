@@ -13,7 +13,7 @@ public class MongoDBConfig extends AbstractMongoClientConfiguration {
 
     @Override
     protected String getDatabaseName() {
-        return "nom_de_la_base_de_données";
+        return "memebattle";
     }
 
     @Override

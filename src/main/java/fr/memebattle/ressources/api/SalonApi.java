@@ -5,8 +5,10 @@
  */
 package fr.memebattle.ressources.api;
 
-import fr.memebattle.ressources.modele.api.RequeteSalon;
-import fr.memebattle.ressources.modele.api.Salon;
+import fr.memebattle.ressources.modele.api.CreerSalon;
+import fr.memebattle.ressources.modele.api.RejoindreSalon;
+import fr.memebattle.ressources.modele.api.ReponseErreur;
+import fr.memebattle.ressources.modele.api.ReponseSalon;
 import io.swagger.annotations.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,25 +24,46 @@ import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-30T12:27:49.367121500-04:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-06-02T10:39:11.257203500-04:00[America/New_York]")
 @Validated
 @Api(value = "salon", description = "the salon API")
 public interface SalonApi {
 
     /**
-     * POST /salon : Créer un nouveau salon
+     * POST /salon/creer : Créer un nouveau salon
      *
-     * @param requeteSalon Informations du salon à créer (required)
+     * @param creerSalon Informations du salon à créer (required)
      * @return Salon créé avec succès (status code 200)
+     *         or Requête invalide (status code 400)
      */
-    @ApiOperation(value = "Créer un nouveau salon", nickname = "creerSalon", notes = "", response = Salon.class, tags={ "Salon", })
+    @ApiOperation(value = "Créer un nouveau salon", nickname = "creerSalon", notes = "", response = ReponseSalon.class, tags={ "Salon", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Salon créé avec succès", response = Salon.class) })
+        @ApiResponse(code = 200, message = "Salon créé avec succès", response = ReponseSalon.class),
+        @ApiResponse(code = 400, message = "Requête invalide", response = ReponseErreur.class) })
     @PostMapping(
-        value = "/salon",
+        value = "/salon/creer",
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    ResponseEntity<Salon> creerSalon(@ApiParam(value = "Informations du salon à créer" ,required=true )  @Valid @RequestBody RequeteSalon requeteSalon);
+    ResponseEntity<ReponseSalon> creerSalon(@ApiParam(value = "Informations du salon à créer" ,required=true )  @Valid @RequestBody CreerSalon creerSalon);
+
+
+    /**
+     * POST /salon/rejoindre : Rejoindre un salon existant
+     *
+     * @param requeteJoueur Informations du joueur à créer (required)
+     * @return Succès - Le joueur a été créé avec succès (status code 200)
+     *         or Requête invalide (status code 400)
+     */
+    @ApiOperation(value = "Rejoindre un salon existant", nickname = "rejoindreSalon", notes = "", response = ReponseSalon.class, tags={ "Salon", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "Succès - Le joueur a été créé avec succès", response = ReponseSalon.class),
+        @ApiResponse(code = 400, message = "Requête invalide", response = ReponseErreur.class) })
+    @PostMapping(
+        value = "/salon/rejoindre",
+        produces = { "application/json" },
+        consumes = { "application/json" }
+    )
+    ResponseEntity<ReponseSalon> rejoindreSalon(@ApiParam(value = "Informations du joueur à créer" ,required=true )  @Valid @RequestBody RejoindreSalon requeteJoueur);
 
 }

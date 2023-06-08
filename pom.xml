@@ -100,6 +100,14 @@
             <artifactId>springfox-swagger-ui</artifactId>
             <version>3.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -139,7 +147,7 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>${project.basedir}/src/main/resources/interfaces/YAML/votes-API.yaml</inputSpec>
+                            <inputSpec>${project.basedir}/src/main/resources/interfaces/YAML/gestion-images-API.yaml</inputSpec>
                             <output>${project.basedir}</output>
                             <generatorName>spring</generatorName>
                             <apiPackage>fr.memebattle.ressources.api</apiPackage>
@@ -163,31 +171,7 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>${project.basedir}/src/main/resources/interfaces/YAML/creation-joueur-API.yaml</inputSpec>
-                            <output>${project.basedir}</output>
-                            <generatorName>spring</generatorName>
-                            <apiPackage>fr.memebattle.ressources.api</apiPackage>
-                            <modelPackage>fr.memebattle.ressources.modele.api</modelPackage>
-                            <generateApiTests>false</generateApiTests>
-                            <generateModelTests>false</generateModelTests>
-                            <groupId>fr.memebattle.ressources</groupId>
-                            <artifactId>api-generator</artifactId>
-                            <artifactVersion>0.0.1-SNAPSHOT</artifactVersion>
-                            <generateSupportingFiles>false</generateSupportingFiles>
-                            <templateDirectory>${project.basedir}/src/main/resources/generates-sources</templateDirectory>
-                            <configOptions>
-                                <interfaceOnly>true</interfaceOnly>
-                                <skipDefaultInterface>true</skipDefaultInterface>
-                            </configOptions>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>generate-serveur-code-3</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <inputSpec>${project.basedir}/src/main/resources/interfaces/YAML/creation-salon-API.yaml</inputSpec>
+                            <inputSpec>${project.basedir}/src/main/resources/interfaces/YAML/gestion-salons-API.yaml</inputSpec>
                             <output>${project.basedir}</output>
                             <generatorName>spring</generatorName>
                             <apiPackage>fr.memebattle.ressources.api</apiPackage>
@@ -205,12 +189,12 @@
                             </configOptions>
                         </configuration>
                     </execution> <execution>
-                    <id>generate-serveur-code-4</id>
+                    <id>generate-serveur-code-3</id>
                     <goals>
                         <goal>generate</goal>
                     </goals>
                     <configuration>
-                        <inputSpec>${project.basedir}/src/main/resources/interfaces/YAML/reponse-requete-API.yaml</inputSpec>
+                        <inputSpec>${project.basedir}/src/main/resources/interfaces/YAML/gestion-votes-classement-API.yaml</inputSpec>
                         <output>${project.basedir}</output>
                         <generatorName>spring</generatorName>
                         <apiPackage>fr.memebattle.ressources.api</apiPackage>

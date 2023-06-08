@@ -10,49 +10,29 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * Salon
+ * CreerSalon
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-30T12:27:49.367121500-04:00[America/New_York]")
-public class Salon   {
-  @JsonProperty("salonName")
-  private String salonName;
-
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-06-02T10:39:11.257203500-04:00[America/New_York]")
+public class CreerSalon   {
   @JsonProperty("maxJoueurs")
   private Integer maxJoueurs;
 
   @JsonProperty("gameMode")
   private String gameMode;
 
-  public Salon salonName(String salonName) {
-    this.salonName = salonName;
-    return this;
-  }
+  @JsonProperty("pseudo")
+  private String pseudo;
 
-  /**
-   * Get salonName
-   * @return salonName
-  */
-  @ApiModelProperty(value = "")
-
-
-  public String getSalonName() {
-    return salonName;
-  }
-
-  public void setSalonName(String salonName) {
-    this.salonName = salonName;
-  }
-
-  public Salon maxJoueurs(Integer maxJoueurs) {
+  public CreerSalon maxJoueurs(Integer maxJoueurs) {
     this.maxJoueurs = maxJoueurs;
     return this;
   }
 
   /**
-   * Get maxJoueurs
+   * Nombre de joueurs maximum du salon
    * @return maxJoueurs
   */
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "6", value = "Nombre de joueurs maximum du salon")
 
 
   public Integer getMaxJoueurs() {
@@ -63,16 +43,16 @@ public class Salon   {
     this.maxJoueurs = maxJoueurs;
   }
 
-  public Salon gameMode(String gameMode) {
+  public CreerSalon gameMode(String gameMode) {
     this.gameMode = gameMode;
     return this;
   }
 
   /**
-   * Get gameMode
+   * Type de partie à jouer dans le salon
    * @return gameMode
   */
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "classique", value = "Type de partie à jouer dans le salon")
 
 
   public String getGameMode() {
@@ -81,6 +61,26 @@ public class Salon   {
 
   public void setGameMode(String gameMode) {
     this.gameMode = gameMode;
+  }
+
+  public CreerSalon pseudo(String pseudo) {
+    this.pseudo = pseudo;
+    return this;
+  }
+
+  /**
+   * Pseudonyme du joueur
+   * @return pseudo
+  */
+  @ApiModelProperty(example = "Wabfall", value = "Pseudonyme du joueur")
+
+
+  public String getPseudo() {
+    return pseudo;
+  }
+
+  public void setPseudo(String pseudo) {
+    this.pseudo = pseudo;
   }
 
 
@@ -92,25 +92,25 @@ public class Salon   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Salon salon = (Salon) o;
-    return Objects.equals(this.salonName, salon.salonName) &&
-        Objects.equals(this.maxJoueurs, salon.maxJoueurs) &&
-        Objects.equals(this.gameMode, salon.gameMode);
+    CreerSalon creerSalon = (CreerSalon) o;
+    return Objects.equals(this.maxJoueurs, creerSalon.maxJoueurs) &&
+        Objects.equals(this.gameMode, creerSalon.gameMode) &&
+        Objects.equals(this.pseudo, creerSalon.pseudo);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(salonName, maxJoueurs, gameMode);
+    return Objects.hash(maxJoueurs, gameMode, pseudo);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Salon {\n");
+    sb.append("class CreerSalon {\n");
     
-    sb.append("    salonName: ").append(toIndentedString(salonName)).append("\n");
     sb.append("    maxJoueurs: ").append(toIndentedString(maxJoueurs)).append("\n");
     sb.append("    gameMode: ").append(toIndentedString(gameMode)).append("\n");
+    sb.append("    pseudo: ").append(toIndentedString(pseudo)).append("\n");
     sb.append("}");
     return sb.toString();
   }

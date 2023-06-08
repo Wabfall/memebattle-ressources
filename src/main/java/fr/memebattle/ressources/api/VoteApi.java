@@ -5,7 +5,7 @@
  */
 package fr.memebattle.ressources.api;
 
-import fr.memebattle.ressources.modele.api.ReponseRequete;
+import fr.memebattle.ressources.modele.api.Vote;
 import io.swagger.annotations.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,25 +21,26 @@ import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-30T12:27:49.618818700-04:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-06-02T10:39:11.465697500-04:00[America/New_York]")
 @Validated
-@Api(value = "reponseRequete", description = "the reponseRequete API")
-public interface ReponseRequeteApi {
+@Api(value = "vote", description = "the vote API")
+public interface VoteApi {
 
     /**
-     * POST /reponseRequete : Envoyer une réponse à une requête
+     * POST /vote : Voter pour une image
+     * Permet à un joueur de voter pour une image dans le jeu
      *
-     * @param reponse Objet ReponseRequete contenant la réponse à la requête (required)
-     * @return Requête traitée avec succès (status code 200)
+     * @param vote Informations du vote (optional)
+     * @return Vote réussi (status code 200)
      *         or Requête invalide (status code 400)
      */
-    @ApiOperation(value = "Envoyer une réponse à une requête", nickname = "reponseRequetePost", notes = "", tags={  })
+    @ApiOperation(value = "Voter pour une image", nickname = "votePost", notes = "Permet à un joueur de voter pour une image dans le jeu", tags={ "Vote", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Requête traitée avec succès"),
+        @ApiResponse(code = 200, message = "Vote réussi"),
         @ApiResponse(code = 400, message = "Requête invalide") })
     @PostMapping(
-        value = "/reponseRequete"
+        value = "/vote"
     )
-    ResponseEntity<Void> reponseRequetePost(@ApiParam(value = "Objet ReponseRequete contenant la réponse à la requête" ,required=true )  @Valid @RequestBody ReponseRequete reponse);
+    ResponseEntity<Void> votePost(@ApiParam(value = "Informations du vote"  )  @Valid @RequestBody(required = false) Vote vote);
 
 }

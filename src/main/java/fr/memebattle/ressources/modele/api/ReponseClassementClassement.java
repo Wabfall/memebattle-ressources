@@ -10,26 +10,26 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * Joueur
+ * ReponseClassementClassement
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-30T12:27:49.210560500-04:00[America/New_York]")
-public class Joueur   {
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-06-02T10:39:11.465697500-04:00[America/New_York]")
+public class ReponseClassementClassement   {
   @JsonProperty("pseudo")
   private String pseudo;
 
-  @JsonProperty("age")
-  private Integer age;
+  @JsonProperty("score")
+  private Integer score;
 
-  public Joueur pseudo(String pseudo) {
+  public ReponseClassementClassement pseudo(String pseudo) {
     this.pseudo = pseudo;
     return this;
   }
 
   /**
-   * Get pseudo
+   * Pseudo du joueur
    * @return pseudo
   */
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "wabfall", value = "Pseudo du joueur")
 
 
   public String getPseudo() {
@@ -40,24 +40,24 @@ public class Joueur   {
     this.pseudo = pseudo;
   }
 
-  public Joueur age(Integer age) {
-    this.age = age;
+  public ReponseClassementClassement score(Integer score) {
+    this.score = score;
     return this;
   }
 
   /**
-   * Get age
-   * @return age
+   * Score du joueur
+   * @return score
   */
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "800", value = "Score du joueur")
 
 
-  public Integer getAge() {
-    return age;
+  public Integer getScore() {
+    return score;
   }
 
-  public void setAge(Integer age) {
-    this.age = age;
+  public void setScore(Integer score) {
+    this.score = score;
   }
 
 
@@ -69,23 +69,23 @@ public class Joueur   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Joueur joueur = (Joueur) o;
-    return Objects.equals(this.pseudo, joueur.pseudo) &&
-        Objects.equals(this.age, joueur.age);
+    ReponseClassementClassement reponseClassementClassement = (ReponseClassementClassement) o;
+    return Objects.equals(this.pseudo, reponseClassementClassement.pseudo) &&
+        Objects.equals(this.score, reponseClassementClassement.score);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pseudo, age);
+    return Objects.hash(pseudo, score);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Joueur {\n");
+    sb.append("class ReponseClassementClassement {\n");
     
     sb.append("    pseudo: ").append(toIndentedString(pseudo)).append("\n");
-    sb.append("    age: ").append(toIndentedString(age)).append("\n");
+    sb.append("    score: ").append(toIndentedString(score)).append("\n");
     sb.append("}");
     return sb.toString();
   }

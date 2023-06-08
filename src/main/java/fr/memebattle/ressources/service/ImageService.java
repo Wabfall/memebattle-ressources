@@ -2,6 +2,7 @@ package fr.memebattle.ressources.service;
 
 import fr.memebattle.ressources.modele.Image;
 import fr.memebattle.ressources.repository.ImageRepository;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -33,7 +34,7 @@ public class ImageService {
         // Logique pour récupérer les données de l'image à partir de l'identifiant de l'image
         // et renvoyer les données de l'image sous forme de tableau de bytes
         // Exemple :
-        Optional<Image> optionalImage = imageRepository.findById(imageId);
+        Optional<Image> optionalImage = imageRepository.findById(new ObjectId(imageId));
         if (optionalImage.isPresent()) {
             return optionalImage.get().getImageBytes();
         }
@@ -46,6 +47,13 @@ public class ImageService {
             // Exemple :
             return imageRepository.findAllByOrderByVotesDesc();
         }
+
+    public Image getRandomImage() {
+
+        return null;
+    }
+
+    public List<Image> getImagesJoueurs
 
     // Getters et setters
 }
