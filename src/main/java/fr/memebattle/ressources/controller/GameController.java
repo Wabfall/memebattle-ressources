@@ -6,8 +6,10 @@ import fr.memebattle.ressources.service.ImageService;
 import fr.memebattle.ressources.service.VoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -49,20 +51,20 @@ public class GameController {
     }
 
     @PostMapping("/salon/{idSalon}/images/envoie")
-    public void envoieImage(@PathVariable String idSalon, @RequestBody String idJoueur, @RequestBody File file) {
+    public void envoieImage(@PathVariable String idSalon, @RequestBody String idJoueur, @RequestBody MultipartFile file) throws IOException {
         // Logique pour permettre à un joueur de voter pour une image dans une salle de jeu
         gameService.envoieImage(idSalon, idJoueur, file);
     }
 
     @PostMapping("/salon/{idSalon}/images/recevoir/fin-tour")
-    public List<Image> recevoirImageFinTour(@PathVariable String idSalon, @RequestBody String idJoueur) {
+    public List<ReponseImage> recevoirImageFinTour(@PathVariable String idSalon, @RequestBody String idJoueur) {
         // Logique pour permettre à un joueur de voter pour une image dans une salle de jeu
         return gameService.recevoirImageFinTour(idSalon, idJoueur);
     }
 
     @PostMapping("/salon/{idSalon}/images/recevoir/debut-tour")
-    public Image recevoirImageDebutTour(@PathVariable String idSalon) {
-        // Logique pour permettre à un joueur de voter pour une image dans une salle de jeu
+    public ReponseImage recevoirImageDebutTour(@PathVariable String idSalon) {
+        // Logique pour permettre à un joueur de recevoir une image à légender
         return gameService.recevoirImageDebutTour(idSalon);
     }
 

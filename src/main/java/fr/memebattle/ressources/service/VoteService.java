@@ -1,9 +1,12 @@
 package fr.memebattle.ressources.service;
 
 import fr.memebattle.ressources.modele.Image;
+import fr.memebattle.ressources.modele.Joueur;
 import fr.memebattle.ressources.modele.Salon;
 import fr.memebattle.ressources.modele.api.Vote;
 import fr.memebattle.ressources.repository.ImageRepository;
+import fr.memebattle.ressources.repository.JoueurRepository;
+import fr.memebattle.ressources.repository.SalonRepository;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +16,13 @@ import java.util.List;
 @Service
 public class VoteService {
     private final ImageRepository imageRepository;
+    private final SalonRepository salonRepository;
+    private final JoueurRepository joueurRepository;
 
-    public VoteService(ImageRepository imageRepository) {
+    public VoteService(ImageRepository imageRepository, SalonRepository salonRepository, JoueurRepository joueurRepository) {
         this.imageRepository = imageRepository;
+        this.salonRepository = salonRepository;
+        this.joueurRepository = joueurRepository;
     }
 
     // Méthode pour voter pour une image
@@ -47,10 +54,16 @@ public class VoteService {
 
         // Calculer les scores des joueurs pour leurs images
         for (Vote vote : votes) {
-            ObjectId imageId = vote.getIdImage();
+            ObjectId imageId = new ObjectId(vote.getIdImage());
+            Image image = imageRepository.findById(imageId).orElse(null);
+            if(image!= null){
+                image.setVotes(image.getVotes() - 1);
+                imageRepository.save(image);
+            }
             int score = calculateImageScore(imageId);
             // Mettre à jour le score du joueur pour son image
-            salon.setScoreJoueur(imageId, vote.getIdJoueur(), score);
+            Joueur joueur = joueurRepository.findById(imageId).orElse(null);
+            joueur.setScore(score);
         }
 
         // Réinitialiser la liste des votes

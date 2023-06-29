@@ -10,20 +10,20 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * Image
+ * ReponseImage
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-06-02T10:39:10.859034900-04:00[America/New_York]")
-public class Image   {
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-06-23T13:43:46.866104-04:00[America/New_York]")
+public class ReponseImage   {
   @JsonProperty("nomFichier")
   private String nomFichier;
 
-  @JsonProperty("cheminImage")
-  private String cheminImage;
+  @JsonProperty("contenuImage")
+  private org.springframework.core.io.Resource contenuImage;
 
   @JsonProperty("idImage")
   private String idImage;
 
-  public Image nomFichier(String nomFichier) {
+  public ReponseImage nomFichier(String nomFichier) {
     this.nomFichier = nomFichier;
     return this;
   }
@@ -43,27 +43,28 @@ public class Image   {
     this.nomFichier = nomFichier;
   }
 
-  public Image cheminImage(String cheminImage) {
-    this.cheminImage = cheminImage;
+  public ReponseImage contenuImage(org.springframework.core.io.Resource contenuImage) {
+    this.contenuImage = contenuImage;
     return this;
   }
 
   /**
-   * chemin pour récupérer l'image
-   * @return cheminImage
+   * contenu de l'image
+   * @return contenuImage
   */
-  @ApiModelProperty(value = "chemin pour récupérer l'image")
+  @ApiModelProperty(value = "contenu de l'image")
 
+  @Valid
 
-  public String getCheminImage() {
-    return cheminImage;
+  public org.springframework.core.io.Resource getContenuImage() {
+    return contenuImage;
   }
 
-  public void setCheminImage(String cheminImage) {
-    this.cheminImage = cheminImage;
+  public void setContenuImage(org.springframework.core.io.Resource contenuImage) {
+    this.contenuImage = contenuImage;
   }
 
-  public Image idImage(String idImage) {
+  public ReponseImage idImage(String idImage) {
     this.idImage = idImage;
     return this;
   }
@@ -92,24 +93,24 @@ public class Image   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Image image = (Image) o;
-    return Objects.equals(this.nomFichier, image.nomFichier) &&
-        Objects.equals(this.cheminImage, image.cheminImage) &&
-        Objects.equals(this.idImage, image.idImage);
+    ReponseImage reponseImage = (ReponseImage) o;
+    return Objects.equals(this.nomFichier, reponseImage.nomFichier) &&
+        Objects.equals(this.contenuImage, reponseImage.contenuImage) &&
+        Objects.equals(this.idImage, reponseImage.idImage);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(nomFichier, cheminImage, idImage);
+    return Objects.hash(nomFichier, contenuImage, idImage);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Image {\n");
+    sb.append("class ReponseImage {\n");
     
     sb.append("    nomFichier: ").append(toIndentedString(nomFichier)).append("\n");
-    sb.append("    cheminImage: ").append(toIndentedString(cheminImage)).append("\n");
+    sb.append("    contenuImage: ").append(toIndentedString(contenuImage)).append("\n");
     sb.append("    idImage: ").append(toIndentedString(idImage)).append("\n");
     sb.append("}");
     return sb.toString();

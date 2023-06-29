@@ -45,7 +45,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: "#/definitions/Image"
+              $ref: "#/definitions/ReponseImage"
         400:
           description: Requête invalide
 
@@ -54,24 +54,31 @@ paths:
       tags:
         - Images
       summary: Récupérer l'image au début du tour
+      parameters:
+        - in: query
+          name: idJoueur
+          required: true
+          description: idJoueur
+          type: string
       responses:
         200:
           description: Image récupérée avec succès
           schema:
-            $ref: "#/definitions/Image"
+            $ref: "#/definitions/ReponseImage"
         400:
           description: Requête invalide
 
 definitions:
-  Image:
+  ReponseImage:
     type: object
     properties:
       nomFichier:
         type: string
         description: nom de l'image
-      cheminImage:
+      contenuImage:
         type: string
-        description: chemin pour récupérer l'image
+        format: binary
+        description: contenu de l'image
       idImage:
         type: string
         description: id de l'Image

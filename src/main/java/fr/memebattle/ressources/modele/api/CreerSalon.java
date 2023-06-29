@@ -12,8 +12,11 @@ import javax.validation.constraints.*;
 /**
  * CreerSalon
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-06-02T10:39:11.257203500-04:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-06-23T13:43:47.188507600-04:00[America/New_York]")
 public class CreerSalon   {
+  @JsonProperty("nomSalon")
+  private String nomSalon;
+
   @JsonProperty("maxJoueurs")
   private Integer maxJoueurs;
 
@@ -22,6 +25,26 @@ public class CreerSalon   {
 
   @JsonProperty("pseudo")
   private String pseudo;
+
+  public CreerSalon nomSalon(String nomSalon) {
+    this.nomSalon = nomSalon;
+    return this;
+  }
+
+  /**
+   * Nom du salon à rejoindre
+   * @return nomSalon
+  */
+  @ApiModelProperty(example = "OEOTW", value = "Nom du salon à rejoindre")
+
+
+  public String getNomSalon() {
+    return nomSalon;
+  }
+
+  public void setNomSalon(String nomSalon) {
+    this.nomSalon = nomSalon;
+  }
 
   public CreerSalon maxJoueurs(Integer maxJoueurs) {
     this.maxJoueurs = maxJoueurs;
@@ -93,14 +116,15 @@ public class CreerSalon   {
       return false;
     }
     CreerSalon creerSalon = (CreerSalon) o;
-    return Objects.equals(this.maxJoueurs, creerSalon.maxJoueurs) &&
+    return Objects.equals(this.nomSalon, creerSalon.nomSalon) &&
+        Objects.equals(this.maxJoueurs, creerSalon.maxJoueurs) &&
         Objects.equals(this.gameMode, creerSalon.gameMode) &&
         Objects.equals(this.pseudo, creerSalon.pseudo);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(maxJoueurs, gameMode, pseudo);
+    return Objects.hash(nomSalon, maxJoueurs, gameMode, pseudo);
   }
 
   @Override
@@ -108,6 +132,7 @@ public class CreerSalon   {
     StringBuilder sb = new StringBuilder();
     sb.append("class CreerSalon {\n");
     
+    sb.append("    nomSalon: ").append(toIndentedString(nomSalon)).append("\n");
     sb.append("    maxJoueurs: ").append(toIndentedString(maxJoueurs)).append("\n");
     sb.append("    gameMode: ").append(toIndentedString(gameMode)).append("\n");
     sb.append("    pseudo: ").append(toIndentedString(pseudo)).append("\n");

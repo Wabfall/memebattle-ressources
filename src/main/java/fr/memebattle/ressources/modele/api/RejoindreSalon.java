@@ -12,33 +12,10 @@ import javax.validation.constraints.*;
 /**
  * RejoindreSalon
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-06-02T10:39:11.257203500-04:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-06-23T13:43:47.188507600-04:00[America/New_York]")
 public class RejoindreSalon   {
-  @JsonProperty("nomSalon")
-  private String nomSalon;
-
   @JsonProperty("pseudo")
   private String pseudo;
-
-  public RejoindreSalon nomSalon(String nomSalon) {
-    this.nomSalon = nomSalon;
-    return this;
-  }
-
-  /**
-   * Nom du salon à rejoindre
-   * @return nomSalon
-  */
-  @ApiModelProperty(example = "OEOTW", value = "Nom du salon à rejoindre")
-
-
-  public String getNomSalon() {
-    return nomSalon;
-  }
-
-  public void setNomSalon(String nomSalon) {
-    this.nomSalon = nomSalon;
-  }
 
   public RejoindreSalon pseudo(String pseudo) {
     this.pseudo = pseudo;
@@ -70,13 +47,12 @@ public class RejoindreSalon   {
       return false;
     }
     RejoindreSalon rejoindreSalon = (RejoindreSalon) o;
-    return Objects.equals(this.nomSalon, rejoindreSalon.nomSalon) &&
-        Objects.equals(this.pseudo, rejoindreSalon.pseudo);
+    return Objects.equals(this.pseudo, rejoindreSalon.pseudo);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(nomSalon, pseudo);
+    return Objects.hash(pseudo);
   }
 
   @Override
@@ -84,7 +60,6 @@ public class RejoindreSalon   {
     StringBuilder sb = new StringBuilder();
     sb.append("class RejoindreSalon {\n");
     
-    sb.append("    nomSalon: ").append(toIndentedString(nomSalon)).append("\n");
     sb.append("    pseudo: ").append(toIndentedString(pseudo)).append("\n");
     sb.append("}");
     return sb.toString();

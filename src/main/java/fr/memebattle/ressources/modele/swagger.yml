@@ -1,0 +1,52 @@
+openapi: 3.0.0
+info:
+  title: API de consultation de compte
+  version: 1.0.0
+paths:
+  /{idCompte}/consulter/:
+    get:
+      summary: Obtenir les détails d'un compte
+      parameters:
+        - in: path
+          name: idCompte
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Succès de la requête
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConsultationCompte'
+        '404':
+          description: Compte non trouvé
+components:
+  schemas:
+    ConsultationCompte:
+      type: object
+      properties:
+        nomDeCompte:
+          type: string
+        soldeCompte:
+          type: number
+          format: double
+        transactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Transaction'
+    Transaction:
+      type: object
+      properties:
+        estNegatif:
+          type: boolean
+        montantTransaction:
+          type: number
+          format: double
+        typeTransaction:
+          type: string
+        titreTransaction:
+          type: string
+        dateOperation:
+          type: string
+          format: date-time

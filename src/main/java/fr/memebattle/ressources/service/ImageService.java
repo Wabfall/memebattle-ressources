@@ -3,10 +3,13 @@ package fr.memebattle.ressources.service;
 import fr.memebattle.ressources.modele.Image;
 import fr.memebattle.ressources.repository.ImageRepository;
 import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,7 +35,7 @@ public class ImageService {
     // Méthode pour afficher une image
     public byte[] getImageBytes(String imageId) {
         // Logique pour récupérer les données de l'image à partir de l'identifiant de l'image
-        // et renvoyer les données de l'image sous forme de tableau de bytes
+        // et renvoyer les données de l'image sous forme de tableau d'octets
         // Exemple :
         Optional<Image> optionalImage = imageRepository.findById(new ObjectId(imageId));
         if (optionalImage.isPresent()) {
@@ -49,11 +52,22 @@ public class ImageService {
         }
 
     public Image getRandomImage() {
+        List<Image> imagesGlobales = imageRepository.findAll();
+        List<Image> imagesTemplates = new ArrayList<>();
+        for(Image  image : imagesGlobales){
+            if(image.isTemplate()){
+                imagesTemplates.add(image);
+            }
+        }
 
-        return null;
+        int randomIndex = (int) (Math.random() * imagesTemplates.size());
+
+        return imagesTemplates.get(randomIndex);
     }
 
-    public List<Image> getImagesJoueurs
+
+
+
 
     // Getters et setters
 }

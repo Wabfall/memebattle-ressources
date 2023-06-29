@@ -5,7 +5,7 @@
  */
 package fr.memebattle.ressources.api;
 
-import fr.memebattle.ressources.modele.api.Image;
+import fr.memebattle.ressources.modele.api.ReponseImage;
 import io.swagger.annotations.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,7 +21,7 @@ import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-06-02T10:39:10.859034900-04:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-06-23T13:43:46.866104-04:00[America/New_York]")
 @Validated
 @Api(value = "images", description = "the images API")
 public interface ImagesApi {
@@ -48,18 +48,19 @@ public interface ImagesApi {
     /**
      * GET /images/recevoir/debut-tour : Récupérer l&#39;image au début du tour
      *
+     * @param idJoueur idJoueur (required)
      * @return Image récupérée avec succès (status code 200)
      *         or Requête invalide (status code 400)
      */
-    @ApiOperation(value = "Récupérer l'image au début du tour", nickname = "imagesRecevoirDebutTourGet", notes = "", response = Image.class, tags={ "Images", })
+    @ApiOperation(value = "Récupérer l'image au début du tour", nickname = "imagesRecevoirDebutTourGet", notes = "", response = ReponseImage.class, tags={ "Images", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Image récupérée avec succès", response = Image.class),
+        @ApiResponse(code = 200, message = "Image récupérée avec succès", response = ReponseImage.class),
         @ApiResponse(code = 400, message = "Requête invalide") })
     @GetMapping(
         value = "/images/recevoir/debut-tour",
         produces = { "*/*" }
     )
-    ResponseEntity<Image> imagesRecevoirDebutTourGet();
+    ResponseEntity<ReponseImage> imagesRecevoirDebutTourGet(@NotNull @ApiParam(value = "idJoueur", required = true) @Valid @RequestParam(value = "idJoueur", required = true) String idJoueur);
 
 
     /**
@@ -69,14 +70,14 @@ public interface ImagesApi {
      * @return Images récupérées avec succès (status code 200)
      *         or Requête invalide (status code 400)
      */
-    @ApiOperation(value = "Récupérer les autres images de fin", nickname = "imagesRecevoirFinTourPost", notes = "", response = Image.class, responseContainer = "List", tags={ "Images", })
+    @ApiOperation(value = "Récupérer les autres images de fin", nickname = "imagesRecevoirFinTourPost", notes = "", response = ReponseImage.class, responseContainer = "List", tags={ "Images", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Images récupérées avec succès", response = Image.class, responseContainer = "List"),
+        @ApiResponse(code = 200, message = "Images récupérées avec succès", response = ReponseImage.class, responseContainer = "List"),
         @ApiResponse(code = 400, message = "Requête invalide") })
     @PostMapping(
         value = "/images/recevoir/fin-tour",
         produces = { "*/*" }
     )
-    ResponseEntity<List<Image>> imagesRecevoirFinTourPost(@NotNull @ApiParam(value = "idJoueur", required = true) @Valid @RequestParam(value = "idJoueur", required = true) String idJoueur);
+    ResponseEntity<List<ReponseImage>> imagesRecevoirFinTourPost(@NotNull @ApiParam(value = "idJoueur", required = true) @Valid @RequestParam(value = "idJoueur", required = true) String idJoueur);
 
 }

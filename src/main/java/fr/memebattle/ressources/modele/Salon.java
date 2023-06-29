@@ -17,7 +17,6 @@ public class Salon {
   private String gamemode;
   private List<ObjectId> joueurs;
   private List<ObjectId> imagesJoueurs;
-
   private List<ObjectId> imagesJeu;
   private List<Vote> votes;
 
@@ -114,6 +113,11 @@ public class Salon {
   }
   public List<ObjectId> getJoueurs() {
     return joueurs;
+  }
+
+  public List<ObjectId> addImagesJeu(ObjectId objectId) {
+    this.imagesJeu.add(objectId);
+    return this.imagesJeu;
   }
 
 }

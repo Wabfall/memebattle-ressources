@@ -62,6 +62,10 @@ definitions:
   CreerSalon:
     type: object
     properties:
+      nomSalon:
+        type: string
+        description: Nom du salon à rejoindre
+        example: OEOTW
       maxJoueurs:
         type: integer
         format: int32
@@ -79,10 +83,6 @@ definitions:
   RejoindreSalon:
     type: object
     properties:
-      nomSalon:
-        type: string
-        description: Nom du salon à rejoindre
-        example: OEOTW
       pseudo:
         type: string
         description: Pseudonyme du joueur
