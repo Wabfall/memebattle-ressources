@@ -27,9 +27,9 @@ public class GameController {
     }
 
     @PostMapping("/salon/creer")
-    public ReponseSalon creerSalon(@RequestBody CreerSalon creerSalon) {
+    public ReponseCodeSalon creerSalon(@RequestBody CreerSalon creerSalon) {
         // Logique pour créer une nouvelle salle de jeu en utilisant les informations fournies dans roomRequest
-        return gameService.creerSalon(creerSalon.getMaxJoueurs(), creerSalon.getGameMode(), creerSalon.getPseudo());
+        return gameService.creerSalon(creerSalon.getMaxJoueurs(), creerSalon.getGameMode());
     }
 
     @PostMapping("/salon/{idSalon}/rejoindre")
@@ -37,6 +37,24 @@ public class GameController {
         // Logique pour permettre à un joueur de rejoindre une salle de jeu existante
         return gameService.rejoindreSalon(idSalon, rejoindreSalon.getPseudo());
     }
+
+    @PostMapping("/salon/{idSalon}/commencer")
+    public void commencerPartie(@PathVariable String idSalon, @RequestBody String idJoueur) {
+        // Logique pour permettre à un joueur de rejoindre une salle de jeu existante
+        gameService.commencerPartie(idSalon, idJoueur);
+    }
+    @PostMapping("/salon/{idSalon}/quitter")
+    public void quitterSalon(@PathVariable String idSalon, @RequestBody String idJoueur) {
+        // Logique pour permettre à un joueur de rejoindre une salle de jeu existante
+        gameService.quitterSalon(idSalon, idJoueur);
+    }
+    @GetMapping("/salon/{idSalon}/listeJoueurs")
+    public List<String> recupererListeJoueurs(@PathVariable String idSalon) {
+        // Logique pour permettre à un joueur de rejoindre une salle de jeu existante
+        return gameService.recupererListeJoueurs(idSalon);
+    }
+
+
 
     @PostMapping("/salon/{idSalon}/vote/{idImage}")
     public void voteImage(@PathVariable String idSalon, @PathVariable String idImage, @RequestBody Vote vote) {

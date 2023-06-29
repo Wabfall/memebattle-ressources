@@ -25,11 +25,7 @@ paths:
         200:
           description: Salon créé avec succès
           schema:
-            $ref: "#/definitions/ReponseSalon"
-        400:
-          description: Requête invalide
-          schema:
-            $ref: "#/definitions/ReponseErreur"
+            $ref: "#/definitions/ReponseCodeSalon"
 
   /salon/rejoindre:
     post:
@@ -58,14 +54,68 @@ paths:
           schema:
             $ref: "#/definitions/ReponseErreur"
 
+  /salon/quitterSalon:
+    post:
+      tags:
+        - Salon
+      summary: Quitter salon
+      operationId: quitterSalon
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: le joueur qui quitte le salon
+          description: joueur qui quitte le salon
+          required: true
+          schema:
+            $ref: "#/definitions/IdJoueur"
+      responses:
+        200:
+          description: le joueur quitte le salon
+
+  /salon/commencer:
+    post:
+      tags:
+        - Salon
+      summary: Commencer la partie
+      operationId: commencerPartie
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: commencerPartie
+          description: joueur qui lance la partie
+          required: true
+          schema:
+            $ref: "#/definitions/IdJoueur"
+      responses:
+        200:
+          description: La partie va commencer
+
+  /salon/listeAttente:
+    get:
+      tags:
+        - Salon
+      summary: Recuperer liste attente
+      operationId: recupererListeAttente
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: La liste de joueurs en attente
+          schema:
+            $ref: "#/definitions/ListeJoueurs"
+
 definitions:
   CreerSalon:
     type: object
     properties:
-      nomSalon:
-        type: string
-        description: Nom du salon à rejoindre
-        example: OEOTW
       maxJoueurs:
         type: integer
         format: int32
@@ -75,11 +125,7 @@ definitions:
         type: string
         description: Type de partie à jouer dans le salon
         example: classique
-      pseudo:
-        type: string
-        description: Pseudonyme du joueur
-        example: Wabfall
-        
+
   RejoindreSalon:
     type: object
     properties:
@@ -99,6 +145,15 @@ definitions:
         type: string
         description: Nom court du salon qui vient d'être créé
         example: OEOTW
+      maxJoueurs:
+        type: integer
+        format: int32
+        description: Nombre de joueurs maximum du salon
+        example: 6
+      gameMode:
+        type: string
+        description: Type de partie à jouer dans le salon
+        example: classique
       idJoueur:
         type: string
         description: Identifiant du joueur
@@ -107,6 +162,30 @@ definitions:
         type: string
         description: Pseudonyme du joueur
         example: Wabfall
+      numJoueur:
+        type: number
+        description: Numero du joueur
+        example:
+
+  ReponseCodeSalon:
+    type: object
+    properties:
+      codeSalon:
+        type: string
+        description: Nom court du salon qui vient d'être créé
+        example: OEOTW
+
+  IdJoueur:
+    type: string
+    description: idDuJoueur
+    example: 649dc0aad3f99b01e287a40a
+
+  ListeJoueurs:
+    type: array
+    description: liste de joueurs en attente
+    items:
+      type: string
+      description: nom des joueurs
 
   ReponseErreur:
     type: object

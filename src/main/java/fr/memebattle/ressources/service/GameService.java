@@ -3,10 +3,7 @@ package fr.memebattle.ressources.service;
 import fr.memebattle.ressources.modele.Image;
 import fr.memebattle.ressources.modele.Joueur;
 import fr.memebattle.ressources.modele.Salon;
-import fr.memebattle.ressources.modele.api.ReponseClassement;
-import fr.memebattle.ressources.modele.api.ReponseClassementClassement;
-import fr.memebattle.ressources.modele.api.ReponseImage;
-import fr.memebattle.ressources.modele.api.ReponseSalon;
+import fr.memebattle.ressources.modele.api.*;
 import fr.memebattle.ressources.repository.ImageRepository;
 import fr.memebattle.ressources.repository.JoueurRepository;
 import fr.memebattle.ressources.repository.SalonRepository;
@@ -19,9 +16,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.*;
 
 import static fr.memebattle.ressources.tools.MemeBattleTools.generateRandomString;
+import static org.springframework.data.repository.util.ClassUtils.ifPresent;
 
 @Service
 @AllArgsConstructor
@@ -37,21 +36,20 @@ public class GameService {
     // Méthodes de la logique métier du jeu
 
     // Exemple de méthode pour créer une salle de jeu
-    public ReponseSalon creerSalon(int maxJoueurs, String gameMode, String pseudoJoueur) {
+    public ReponseCodeSalon creerSalon(int maxJoueurs, String gameMode) {
         // Logique pour créer une nouvelle salle de jeu
         // Convertir le String en ObjectId
         ObjectId salonId = new ObjectId();
 
         Salon salon = new Salon(salonId, generateRandomString(), maxJoueurs, gameMode);
         ObjectId joueurId = new ObjectId();
-        Joueur joueur = new Joueur(joueurId, pseudoJoueur);
-        salon.ajouterJoueur(joueur.getId());
 
-        //Sauvegarde des objets dans la base de données
-        joueurRepository.save(joueur);
+        //Sauvegarde des objets dans la base de données;
         salonRepository.save(salon);
 
-        return createReponseSalon(salon, joueur);
+        ReponseCodeSalon reponseCodeSalon = new ReponseCodeSalon();
+        reponseCodeSalon.setCodeSalon(salon.getNomSalon());
+        return reponseCodeSalon;
     }
 
     // Exemple de méthode pour rejoindre une salle de jeu
@@ -86,7 +84,50 @@ public class GameService {
         reponseSalon.setIdSalon(String.valueOf(salon.getId()));
         reponseSalon.setIdJoueur(String.valueOf(joueur.getId()));
         reponseSalon.setPseudo(joueur.getPseudo());
+        reponseSalon.setGameMode(salon.getGameMode());
+        reponseSalon.setMaxJoueurs(salon.getNombreMaxJoueurs());
+        reponseSalon.setNumJoueur(BigDecimal.valueOf(salon.getJoueurs().indexOf(joueur.getId()) + 1));
         return reponseSalon;
+    }
+
+    public void commencerPartie(String idSalon, String idJoueur) {
+        // Logique pour récupérer l'image au début d'un tour de jeu
+        Salon salon = salonRepository.findById(new ObjectId(idSalon)).orElse(null);
+        ObjectId idJoueurUn = new ObjectId(idJoueur);
+        if (salon != null) {
+            if(idJoueurUn == salon.getJoueurs().get(0)) {
+                salon.setPartieEstCommence(true);
+            }
+        }
+        salonRepository.save(salon);
+    }
+
+    public void quitterSalon(String idSalon, String idJoueur) {
+        // Logique pour qu'un joueur puisse quitter le salon
+        Salon salon = salonRepository.findById(new ObjectId(idSalon)).orElse(null);
+        ObjectId idJoueurAQuitter = new ObjectId(idJoueur);
+        if (salon != null) {
+            int index = salon.getJoueurs().indexOf(idJoueurAQuitter);
+            if(index >= 0) {
+                salon.getJoueurs().remove(index);
+            }
+        }
+        salonRepository.save(salon);
+    }
+
+    public List<String> recupererListeJoueurs(String nomSalon) {
+        Salon salon = salonRepository.findByNomSalon(nomSalon).orElse(null);
+        List<String> listeAttente = new ArrayList<String>();
+
+        if (salon!= null) {
+            for(int i=0; i<salon.getJoueurs().size(); i++) {
+                Joueur joueur = joueurRepository.findById(salon.getJoueurs().get(i)).orElse(null);
+                if(joueur != null){
+                    listeAttente.add(joueur.getPseudo());
+                }
+            }
+        }
+        return listeAttente;
     }
 
     // Méthode pour voter pour une image dans une salle de jeu

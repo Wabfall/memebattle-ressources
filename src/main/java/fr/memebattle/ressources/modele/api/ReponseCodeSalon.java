@@ -10,31 +10,31 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * RejoindreSalon
+ * ReponseCodeSalon
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-06-29T15:38:46.103042800-04:00[America/New_York]")
-public class RejoindreSalon   {
-  @JsonProperty("pseudo")
-  private String pseudo;
+public class ReponseCodeSalon   {
+  @JsonProperty("codeSalon")
+  private String codeSalon;
 
-  public RejoindreSalon pseudo(String pseudo) {
-    this.pseudo = pseudo;
+  public ReponseCodeSalon codeSalon(String codeSalon) {
+    this.codeSalon = codeSalon;
     return this;
   }
 
   /**
-   * Pseudonyme du joueur
-   * @return pseudo
+   * Nom court du salon qui vient d'être créé
+   * @return codeSalon
   */
-  @ApiModelProperty(example = "Wabfall", value = "Pseudonyme du joueur")
+  @ApiModelProperty(example = "OEOTW", value = "Nom court du salon qui vient d'être créé")
 
 
-  public String getPseudo() {
-    return pseudo;
+  public String getCodeSalon() {
+    return codeSalon;
   }
 
-  public void setPseudo(String pseudo) {
-    this.pseudo = pseudo;
+  public void setCodeSalon(String codeSalon) {
+    this.codeSalon = codeSalon;
   }
 
 
@@ -46,21 +46,21 @@ public class RejoindreSalon   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    RejoindreSalon rejoindreSalon = (RejoindreSalon) o;
-    return Objects.equals(this.pseudo, rejoindreSalon.pseudo);
+    ReponseCodeSalon reponseCodeSalon = (ReponseCodeSalon) o;
+    return Objects.equals(this.codeSalon, reponseCodeSalon.codeSalon);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pseudo);
+    return Objects.hash(codeSalon);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class RejoindreSalon {\n");
+    sb.append("class ReponseCodeSalon {\n");
     
-    sb.append("    pseudo: ").append(toIndentedString(pseudo)).append("\n");
+    sb.append("    codeSalon: ").append(toIndentedString(codeSalon)).append("\n");
     sb.append("}");
     return sb.toString();
   }

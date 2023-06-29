@@ -20,9 +20,12 @@ public class Salon {
   private List<ObjectId> imagesJeu;
   private List<Vote> votes;
 
+  private boolean partieEstCommence;
+
   private int numeroTour;
 
   public Salon(ObjectId id, String nomSalon, int nombreMaxJoueurs, String gamemode) {
+    this.partieEstCommence = false;
     this.id = id;
     this.nomSalon = nomSalon;
     this.nombreMaxJoueurs = nombreMaxJoueurs;
@@ -46,11 +49,11 @@ public class Salon {
     this.nomSalon = nomSalon;
   }
 
-  public String getGamemode() {
+  public String getGameMode() {
     return gamemode;
   }
 
-  public void setGamemode(String gamemode) {
+  public void setGameMode(String gamemode) {
     this.gamemode = gamemode;
   }
 
@@ -87,6 +90,14 @@ public class Salon {
     vote.setIdJoueur(idJoueur);
     vote.setIdImage(idImage);
     this.votes.add(vote);
+  }
+
+  public boolean isPartieEstCommence() {
+    return partieEstCommence;
+  }
+
+  public void setPartieEstCommence(boolean partieEstCommence) {
+    this.partieEstCommence = partieEstCommence;
   }
 
   public void retirerVote(ObjectId vote) {
