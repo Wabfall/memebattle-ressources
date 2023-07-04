@@ -1,210 +1,84 @@
-swagger: "2.0"
+swagger: '2.0'
 info:
   version: "1.0.0"
-  title: API de gestion des salons MemeBattle
-  description: API pour la création et la gestion des salons MemeBattle
+  title: API des images
+  description: API pour gérer les images
 paths:
-  /salon/creer:
+  /images/envoie:
     post:
       tags:
-        - Salon
-      summary: Créer un nouveau salon
-      operationId: creerSalon
+        - Images
+      summary: Ajouter une image dans la base de données
       consumes:
-        - application/json
-      produces:
-        - application/json
+        - multipart/form-data
       parameters:
-        - in: body
-          name: creerSalon
-          description: Informations du salon à créer
+        - in: query
+          name: idJoueur
           required: true
-          schema:
-            $ref: "#/definitions/CreerSalon"
+          description: idJoueur
+          type: string
+        - in: formData
+          name: image
+          required: true
+          description: Image à ajouter
+          type: file
       responses:
         200:
-          description: Salon créé avec succès
-          schema:
-            $ref: "#/definitions/ReponseCodeSalon"
-
-  /salon/rejoindre:
-    post:
-      tags:
-        - Salon
-      summary: Rejoindre un salon existant
-      operationId: rejoindreSalon
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - in: body
-          name: requeteJoueur
-          description: Informations du joueur à créer
-          required: true
-          schema:
-            $ref: "#/definitions/RejoindreSalon"
-      responses:
-        200:
-          description: Succès - Le joueur a été créé avec succès
-          schema:
-            $ref: "#/definitions/ReponseSalon"
+          description: Image ajoutée avec succès
         400:
           description: Requête invalide
-          schema:
-            $ref: "#/definitions/ReponseErreur"
 
-  /salon/quitterSalon:
+  /images/recevoir/fin-tour:
     post:
       tags:
-        - Salon
-      summary: Quitter salon
-      operationId: quitterSalon
-      consumes:
-        - application/json
-      produces:
-        - application/json
+        - Images
+      summary: Récupérer les autres images de fin
       parameters:
-        - in: body
-          name: quitterSalon
-          description: joueur qui quitte le salon
+        - in: query
+          name: idJoueur
           required: true
-          schema:
-            $ref: "#/definitions/RequeteJoueur"
+          description: idJoueur
+          type: string
       responses:
         200:
-          description: le joueur quitte le salon
-
-  /salon/commencer:
-    post:
-      tags:
-        - Salon
-      summary: Commencer la partie
-      operationId: commencerPartie
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - in: body
-          name: commencerPartie
-          description: joueur qui lance la partie
-          required: true
+          description: Images récupérées avec succès
           schema:
-            $ref: "#/definitions/RequeteJoueur"
-      responses:
-        200:
-          description: La partie va commencer
+            type: array
+            items:
+              $ref: "#/definitions/ReponseImage"
+        400:
+          description: Requête invalide
 
-  /salon/attente:
+  /images/recevoir/debut-tour:
     get:
       tags:
-        - Salon
-      summary: Recuperer informations attente
-      operationId: recupererInfosAttente
-      consumes:
-        - application/json
-      produces:
-        - application/json
+        - Images
+      summary: Récupérer l'image au début du tour
+      parameters:
+        - in: query
+          name: idJoueur
+          required: true
+          description: idJoueur
+          type: string
       responses:
         200:
-          description: La liste de joueurs en attente
+          description: Image récupérée avec succès
           schema:
-            $ref: "#/definitions/ReponseAttente"
+            $ref: "#/definitions/ReponseImage"
+        400:
+          description: Requête invalide
 
 definitions:
-  CreerSalon:
+  ReponseImage:
     type: object
     properties:
-      maxJoueurs:
-        type: integer
-        format: int32
-        description: Nombre de joueurs maximum du salon
-        example: 6
-      gameMode:
+      nomFichier:
         type: string
-        description: Type de partie à jouer dans le salon
-        example: classique
-
-  RejoindreSalon:
-    type: object
-    properties:
-      pseudo:
+        description: nom de l'image
+      contenuImage:
         type: string
-        description: Pseudonyme du joueur
-        example: Wabfall
-
-  ReponseSalon:
-    type: object
-    properties:
-      idSalon:
+        format: byte
+        description: contenu de l'image encodé en base64
+      idImage:
         type: string
-        description: Identifiant du salon qui vient d'être créé
-        example: 223418136f238113312d96f5
-      nomSalon:
-        type: string
-        description: Nom court du salon qui vient d'être créé
-        example: OEOTW
-      maxJoueurs:
-        type: integer
-        format: int32
-        description: Nombre de joueurs maximum du salon
-        example: 6
-      gameMode:
-        type: string
-        description: Type de partie à jouer dans le salon
-        example: classique
-      idJoueur:
-        type: string
-        description: Identifiant du joueur
-        example: abc123
-      pseudo:
-        type: string
-        description: Pseudonyme du joueur
-        example: Wabfall
-      numJoueur:
-        type: number
-        description: Numero du joueur
-        example: 3
-      partieEstCommence:
-        type: boolean
-        description: etat de la partie
-        example: false
-
-  ReponseCodeSalon:
-    type: object
-    properties:
-      codeSalon:
-        type: string
-        description: Nom court du salon qui vient d'être créé
-        example: OEOTW
-
-  RequeteJoueur:
-    type: object
-    properties:
-      idJoueur :
-        type: string
-        description: idDuJoueur
-        example: 649dc0aad3f99b01e287a40a
-
-  ReponseAttente:
-    type: object
-    description: liste de joueurs en attente
-    properties:
-      listeJoueurs:
-        type: array
-        description: liste de joueurs en attente
-        items:
-          type: string
-          description: nom des joueurs
-      partieEstCommence:
-        type: boolean
-        description: etat de la partie
-        example: true
-
-  ReponseErreur:
-    type: object
-    properties:
-      message:
-        type: string
-        description: Message d'erreur
+        description: id de l'Image

@@ -22,11 +22,15 @@ public class Image {
     @Field("template")
     private boolean template;
 
+    @Field("theme")
+    private String theme;
+
     public Image(String fileName, byte[] imageBytes) {
         this.fileName = fileName;
         this.imageBytes = imageBytes;
         this.votes = 0;
         this.template = false;
+        this.theme = "user";
     }
 
     public ObjectId getId() {
@@ -63,5 +67,13 @@ public class Image {
 
     public void setTemplate(boolean template) {
         this.template = template;
+    }
+
+    public String getTheme() {
+        return theme;
+    }
+
+    public void setTheme(String theme) {
+        this.theme = theme;
     }
 }

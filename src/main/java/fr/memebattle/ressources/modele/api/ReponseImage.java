@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import org.openapitools.jackson.nullable.JsonNullable;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -12,13 +13,13 @@ import javax.validation.constraints.*;
 /**
  * ReponseImage
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-07-03T23:22:58.898932300-04:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-07-04T01:26:38.459157800-04:00[America/New_York]")
 public class ReponseImage   {
   @JsonProperty("nomFichier")
   private String nomFichier;
 
   @JsonProperty("contenuImage")
-  private org.springframework.core.io.Resource contenuImage;
+  private byte[] contenuImage;
 
   @JsonProperty("idImage")
   private String idImage;
@@ -43,24 +44,23 @@ public class ReponseImage   {
     this.nomFichier = nomFichier;
   }
 
-  public ReponseImage contenuImage(org.springframework.core.io.Resource contenuImage) {
+  public ReponseImage contenuImage(byte[] contenuImage) {
     this.contenuImage = contenuImage;
     return this;
   }
 
   /**
-   * contenu de l'image
+   * contenu de l'image encodé en base64
    * @return contenuImage
   */
-  @ApiModelProperty(value = "contenu de l'image")
+  @ApiModelProperty(value = "contenu de l'image encodé en base64")
 
-  @Valid
 
-  public org.springframework.core.io.Resource getContenuImage() {
+  public byte[] getContenuImage() {
     return contenuImage;
   }
 
-  public void setContenuImage(org.springframework.core.io.Resource contenuImage) {
+  public void setContenuImage(byte[] contenuImage) {
     this.contenuImage = contenuImage;
   }
 
@@ -95,13 +95,13 @@ public class ReponseImage   {
     }
     ReponseImage reponseImage = (ReponseImage) o;
     return Objects.equals(this.nomFichier, reponseImage.nomFichier) &&
-        Objects.equals(this.contenuImage, reponseImage.contenuImage) &&
+        Arrays.equals(this.contenuImage, reponseImage.contenuImage) &&
         Objects.equals(this.idImage, reponseImage.idImage);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(nomFichier, contenuImage, idImage);
+    return Objects.hash(nomFichier, Arrays.hashCode(contenuImage), idImage);
   }
 
   @Override

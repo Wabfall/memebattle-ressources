@@ -127,6 +127,9 @@ public class Salon {
   }
 
   public List<ObjectId> addImagesJeu(ObjectId objectId) {
+    if(this.imagesJeu == null) {
+      this.imagesJeu = new ArrayList<>();
+    }
     this.imagesJeu.add(objectId);
     return this.imagesJeu;
   }

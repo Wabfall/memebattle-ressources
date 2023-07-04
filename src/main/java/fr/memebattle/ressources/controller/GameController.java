@@ -54,8 +54,6 @@ public class GameController {
         return gameService.recupererInfosAttente(idSalon);
     }
 
-
-
     @PostMapping("/salon/{idSalon}/vote/{idImage}")
     public void voteImage(@PathVariable String idSalon, @PathVariable String idImage, @RequestBody Vote vote) {
         // Logique pour permettre à un joueur de voter pour une image dans une salle de jeu
@@ -80,7 +78,7 @@ public class GameController {
         return gameService.recevoirImageFinTour(idSalon, idJoueur);
     }
 
-    @PostMapping("/salon/{idSalon}/images/recevoir/debut-tour")
+    @GetMapping("/salon/{idSalon}/images/recevoir/debut-tour")
     public ReponseImage recevoirImageDebutTour(@PathVariable String idSalon) {
         // Logique pour permettre à un joueur de recevoir une image à légender
         return gameService.recevoirImageDebutTour(idSalon);

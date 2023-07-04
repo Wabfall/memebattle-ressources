@@ -13,6 +13,7 @@ import org.springframework.core.io.ByteArrayResource;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -94,7 +95,6 @@ public class GameService {
         if (salon != null) {
             if(idJoueurUn.equals(salon.getJoueurs().get(0))) {
                 salon.setPartieEstCommence(true);
-                logger.info("" + salon.isPartieEstCommence());
             }
         }
         salonRepository.save(salon);
@@ -132,9 +132,9 @@ public class GameService {
     }
 
     // Méthode pour voter pour une image dans une salle de jeu
-    public void voteImage(String idSalon, String idImage, String idJoueur) {
+    public void voteImage(String nomSalon, String idImage, String idJoueur) {
         // Logique pour voter pour une image dans une salle de jeu
-        Salon salon = salonRepository.findById(new ObjectId(idSalon)).orElse(null);
+        Salon salon = salonRepository.findByNomSalon(nomSalon).orElse(null);
         if (salon != null) {
             // Récupérer l'objet Image à partir de l'idImage
             Optional<ObjectId> optionalImage = salon.getImagesJoueurs().stream()
@@ -164,9 +164,9 @@ public class GameService {
         }
     }
 
-    public ReponseClassement recupererClassement(String idSalon) {
+    public ReponseClassement recupererClassement(String nomSalon) {
         // Logique pour récupérer le classement d'un salon de jeu
-        Salon salon = salonRepository.findById(new ObjectId(idSalon)).orElse(null);
+        Salon salon = salonRepository.findByNomSalon(nomSalon).orElse(null);
         if (salon != null) {
             List<ReponseClassementClassement> classement = new ArrayList<>();
             ReponseClassement reponseClassement = new ReponseClassement();
@@ -176,9 +176,9 @@ public class GameService {
         return null;
     }
 
-    public void envoieImage(String idSalon, String idJoueur, MultipartFile file) throws IOException {
+    public void envoieImage(String nomSalon, String idJoueur, MultipartFile file) throws IOException {
         // Logique pour recevoir l'image envoyée par un joueur dans un salon de jeu
-        Salon salon = salonRepository.findById(new ObjectId(idSalon)).orElse(null);
+        Salon salon = salonRepository.findByNomSalon(nomSalon).orElse(null);
         if (salon != null) {
             // Vérifier si c'est le tour du joueur pour envoyer une image
                 // Enregistrer l'image dans le système de fichiers ou dans une base de données
@@ -191,9 +191,9 @@ public class GameService {
         }
     }
 
-     public List<ReponseImage> recevoirImageFinTour(String idSalon, String idJoueur) {
+     public List<ReponseImage> recevoirImageFinTour(String nomSalon, String idJoueur) {
         // Logique pour récupérer les images à afficher à la fin d'un tour de jeu
-        Salon salon = salonRepository.findById(new ObjectId(idSalon)).orElse(null);
+        Salon salon = salonRepository.findByNomSalon(nomSalon).orElse(null);
         if (salon != null) {
             // Récupérer les images du salon
             List<Optional<Image>> images = new ArrayList<>();
@@ -207,7 +207,7 @@ public class GameService {
                     ReponseImage reponseImage = new ReponseImage();
                     reponseImage.setNomFichier(image.getFileName());
                     reponseImage.setIdImage(image.getId().toString());
-                    reponseImage.setContenuImage(new ByteArrayResource(image.getImageBytes()));
+                    reponseImage.setContenuImage(image.getImageBytes());
                     listeReponseImage.add(reponseImage);
                 }
             }
@@ -216,9 +216,9 @@ public class GameService {
         return new ArrayList<>();
     }
 
-    public ReponseImage recevoirImageDebutTour(String idSalon) {
+    public ReponseImage recevoirImageDebutTour(String nomSalon) {
         // Logique pour récupérer l'image au début d'un tour de jeu
-        Salon salon = salonRepository.findById(new ObjectId(idSalon)).orElse(null);
+        Salon salon = salonRepository.findByNomSalon(nomSalon).orElse(null);
         if (salon != null) {
                 // Utiliser l'objet ImageService pour récupérer une image aléatoire
                 Image image = imageService.getRandomImage();
@@ -228,7 +228,8 @@ public class GameService {
                 ReponseImage reponseImage = new ReponseImage();
                 reponseImage.setNomFichier(image.getFileName());
                 reponseImage.setIdImage(image.getId().toString());
-                reponseImage.setContenuImage(new ByteArrayResource(image.getImageBytes()));
+                reponseImage.setContenuImage(image.getImageBytes());
+
                 return reponseImage;
         }
         return null;
