@@ -20,7 +20,6 @@ import java.math.BigDecimal;
 import java.util.*;
 
 import static fr.memebattle.ressources.tools.MemeBattleTools.generateRandomString;
-import static org.springframework.data.repository.util.ClassUtils.ifPresent;
 
 @Service
 @AllArgsConstructor
@@ -42,7 +41,6 @@ public class GameService {
         ObjectId salonId = new ObjectId();
 
         Salon salon = new Salon(salonId, generateRandomString(), maxJoueurs, gameMode);
-        ObjectId joueurId = new ObjectId();
 
         //Sauvegarde des objets dans la base de données;
         salonRepository.save(salon);
@@ -56,9 +54,6 @@ public class GameService {
     // Méthode pour permettre à un joueur de rejoindre une salle de jeu existante
     public ReponseSalon rejoindreSalon(String nomSalon, String pseudoJoueur) {
         // Logique pour permettre à un joueur de rejoindre une salle de jeu existante
-        logger.info("nomSalon : " + nomSalon);
-        logger.info("nomJoueur : " + pseudoJoueur);
-
         Optional<Salon> optionalSalon = salonRepository.findByNomSalon(nomSalon);
         if (optionalSalon.isPresent()) {
             Salon salon = optionalSalon.get();
@@ -81,6 +76,7 @@ public class GameService {
         ReponseSalon reponseSalon = new ReponseSalon();
 
         reponseSalon.setNomSalon(salon.getNomSalon());
+        reponseSalon.setPartieEstCommence(salon.isPartieEstCommence());
         reponseSalon.setIdSalon(String.valueOf(salon.getId()));
         reponseSalon.setIdJoueur(String.valueOf(joueur.getId()));
         reponseSalon.setPseudo(joueur.getPseudo());
@@ -90,22 +86,24 @@ public class GameService {
         return reponseSalon;
     }
 
-    public void commencerPartie(String idSalon, String idJoueur) {
+    public void commencerPartie(String nomSalon, RequeteJoueur requeteJoueur) {
+
         // Logique pour récupérer l'image au début d'un tour de jeu
-        Salon salon = salonRepository.findById(new ObjectId(idSalon)).orElse(null);
-        ObjectId idJoueurUn = new ObjectId(idJoueur);
+        Salon salon = salonRepository.findByNomSalon(nomSalon).orElse(null);
+        ObjectId idJoueurUn = new ObjectId(requeteJoueur.getIdJoueur());
         if (salon != null) {
-            if(idJoueurUn == salon.getJoueurs().get(0)) {
+            if(idJoueurUn.equals(salon.getJoueurs().get(0))) {
                 salon.setPartieEstCommence(true);
+                logger.info("" + salon.isPartieEstCommence());
             }
         }
         salonRepository.save(salon);
     }
 
-    public void quitterSalon(String idSalon, String idJoueur) {
+    public void quitterSalon(String nomSalon, RequeteJoueur requeteJoueur) {
         // Logique pour qu'un joueur puisse quitter le salon
-        Salon salon = salonRepository.findById(new ObjectId(idSalon)).orElse(null);
-        ObjectId idJoueurAQuitter = new ObjectId(idJoueur);
+        Salon salon = salonRepository.findByNomSalon(nomSalon).orElse(null);
+        ObjectId idJoueurAQuitter = new ObjectId(requeteJoueur.getIdJoueur());
         if (salon != null) {
             int index = salon.getJoueurs().indexOf(idJoueurAQuitter);
             if(index >= 0) {
@@ -115,8 +113,9 @@ public class GameService {
         salonRepository.save(salon);
     }
 
-    public List<String> recupererListeJoueurs(String nomSalon) {
+    public ReponseAttente recupererInfosAttente(String nomSalon) {
         Salon salon = salonRepository.findByNomSalon(nomSalon).orElse(null);
+        ReponseAttente reponseAttente = new ReponseAttente();
         List<String> listeAttente = new ArrayList<String>();
 
         if (salon!= null) {
@@ -126,8 +125,10 @@ public class GameService {
                     listeAttente.add(joueur.getPseudo());
                 }
             }
+            reponseAttente.setListeJoueurs(listeAttente);
+            reponseAttente.setPartieEstCommence(salon.isPartieEstCommence());
         }
-        return listeAttente;
+        return reponseAttente;
     }
 
     // Méthode pour voter pour une image dans une salle de jeu

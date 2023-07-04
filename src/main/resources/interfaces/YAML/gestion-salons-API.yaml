@@ -66,11 +66,11 @@ paths:
         - application/json
       parameters:
         - in: body
-          name: le joueur qui quitte le salon
+          name: quitterSalon
           description: joueur qui quitte le salon
           required: true
           schema:
-            $ref: "#/definitions/IdJoueur"
+            $ref: "#/definitions/RequeteJoueur"
       responses:
         200:
           description: le joueur quitte le salon
@@ -91,17 +91,17 @@ paths:
           description: joueur qui lance la partie
           required: true
           schema:
-            $ref: "#/definitions/IdJoueur"
+            $ref: "#/definitions/RequeteJoueur"
       responses:
         200:
           description: La partie va commencer
 
-  /salon/listeAttente:
+  /salon/attente:
     get:
       tags:
         - Salon
-      summary: Recuperer liste attente
-      operationId: recupererListeAttente
+      summary: Recuperer informations attente
+      operationId: recupererInfosAttente
       consumes:
         - application/json
       produces:
@@ -110,7 +110,7 @@ paths:
         200:
           description: La liste de joueurs en attente
           schema:
-            $ref: "#/definitions/ListeJoueurs"
+            $ref: "#/definitions/ReponseAttente"
 
 definitions:
   CreerSalon:
@@ -165,7 +165,11 @@ definitions:
       numJoueur:
         type: number
         description: Numero du joueur
-        example:
+        example: 3
+      partieEstCommence:
+        type: boolean
+        description: etat de la partie
+        example: false
 
   ReponseCodeSalon:
     type: object
@@ -175,17 +179,28 @@ definitions:
         description: Nom court du salon qui vient d'être créé
         example: OEOTW
 
-  IdJoueur:
-    type: string
-    description: idDuJoueur
-    example: 649dc0aad3f99b01e287a40a
+  RequeteJoueur:
+    type: object
+    properties:
+      idJoueur :
+        type: string
+        description: idDuJoueur
+        example: 649dc0aad3f99b01e287a40a
 
-  ListeJoueurs:
-    type: array
+  ReponseAttente:
+    type: object
     description: liste de joueurs en attente
-    items:
-      type: string
-      description: nom des joueurs
+    properties:
+      listeJoueurs:
+        type: array
+        description: liste de joueurs en attente
+        items:
+          type: string
+          description: nom des joueurs
+      partieEstCommence:
+        type: boolean
+        description: etat de la partie
+        example: true
 
   ReponseErreur:
     type: object

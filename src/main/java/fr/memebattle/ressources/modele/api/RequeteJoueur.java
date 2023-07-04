@@ -10,46 +10,23 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * Vote
+ * RequeteJoueur
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-07-03T23:22:59.648730500-04:00[America/New_York]")
-public class Vote   {
-  @JsonProperty("idImage")
-  private String idImage;
-
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-07-03T23:22:59.305186400-04:00[America/New_York]")
+public class RequeteJoueur   {
   @JsonProperty("idJoueur")
   private String idJoueur;
 
-  public Vote idImage(String idImage) {
-    this.idImage = idImage;
-    return this;
-  }
-
-  /**
-   * ID de l'image à voter
-   * @return idImage
-  */
-  @ApiModelProperty(value = "ID de l'image à voter")
-
-
-  public String getIdImage() {
-    return idImage;
-  }
-
-  public void setIdImage(String idImage) {
-    this.idImage = idImage;
-  }
-
-  public Vote idJoueur(String idJoueur) {
+  public RequeteJoueur idJoueur(String idJoueur) {
     this.idJoueur = idJoueur;
     return this;
   }
 
   /**
-   * ID du joueur qui effectue le vote
+   * idDuJoueur
    * @return idJoueur
   */
-  @ApiModelProperty(value = "ID du joueur qui effectue le vote")
+  @ApiModelProperty(example = "649dc0aad3f99b01e287a40a", value = "idDuJoueur")
 
 
   public String getIdJoueur() {
@@ -69,22 +46,20 @@ public class Vote   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Vote vote = (Vote) o;
-    return Objects.equals(this.idImage, vote.idImage) &&
-        Objects.equals(this.idJoueur, vote.idJoueur);
+    RequeteJoueur requeteJoueur = (RequeteJoueur) o;
+    return Objects.equals(this.idJoueur, requeteJoueur.idJoueur);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(idImage, idJoueur);
+    return Objects.hash(idJoueur);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Vote {\n");
+    sb.append("class RequeteJoueur {\n");
     
-    sb.append("    idImage: ").append(toIndentedString(idImage)).append("\n");
     sb.append("    idJoueur: ").append(toIndentedString(idJoueur)).append("\n");
     sb.append("}");
     return sb.toString();

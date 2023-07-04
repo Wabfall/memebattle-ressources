@@ -39,19 +39,19 @@ public class GameController {
     }
 
     @PostMapping("/salon/{idSalon}/commencer")
-    public void commencerPartie(@PathVariable String idSalon, @RequestBody String idJoueur) {
+    public void commencerPartie(@PathVariable String idSalon, @RequestBody RequeteJoueur requeteJoueur) {
         // Logique pour permettre à un joueur de rejoindre une salle de jeu existante
-        gameService.commencerPartie(idSalon, idJoueur);
+        gameService.commencerPartie(idSalon, requeteJoueur);
     }
     @PostMapping("/salon/{idSalon}/quitter")
-    public void quitterSalon(@PathVariable String idSalon, @RequestBody String idJoueur) {
+    public void quitterSalon(@PathVariable String idSalon, @RequestBody RequeteJoueur requeteJoueur) {
         // Logique pour permettre à un joueur de rejoindre une salle de jeu existante
-        gameService.quitterSalon(idSalon, idJoueur);
+        gameService.quitterSalon(idSalon, requeteJoueur);
     }
-    @GetMapping("/salon/{idSalon}/listeJoueurs")
-    public List<String> recupererListeJoueurs(@PathVariable String idSalon) {
+    @GetMapping("/salon/{idSalon}/attente")
+    public ReponseAttente recupererInfosAttente(@PathVariable String idSalon) {
         // Logique pour permettre à un joueur de rejoindre une salle de jeu existante
-        return gameService.recupererListeJoueurs(idSalon);
+        return gameService.recupererInfosAttente(idSalon);
     }
 
 

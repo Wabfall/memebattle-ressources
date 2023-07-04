@@ -13,7 +13,7 @@ import javax.validation.constraints.*;
 /**
  * ReponseSalon
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-06-29T15:38:46.103042800-04:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-07-03T23:22:59.305186400-04:00[America/New_York]")
 public class ReponseSalon   {
   @JsonProperty("idSalon")
   private String idSalon;
@@ -35,6 +35,9 @@ public class ReponseSalon   {
 
   @JsonProperty("numJoueur")
   private BigDecimal numJoueur;
+
+  @JsonProperty("partieEstCommence")
+  private Boolean partieEstCommence;
 
   public ReponseSalon idSalon(String idSalon) {
     this.idSalon = idSalon;
@@ -165,7 +168,7 @@ public class ReponseSalon   {
    * Numero du joueur
    * @return numJoueur
   */
-  @ApiModelProperty(value = "Numero du joueur")
+  @ApiModelProperty(example = "3.0", value = "Numero du joueur")
 
   @Valid
 
@@ -175,6 +178,26 @@ public class ReponseSalon   {
 
   public void setNumJoueur(BigDecimal numJoueur) {
     this.numJoueur = numJoueur;
+  }
+
+  public ReponseSalon partieEstCommence(Boolean partieEstCommence) {
+    this.partieEstCommence = partieEstCommence;
+    return this;
+  }
+
+  /**
+   * etat de la partie
+   * @return partieEstCommence
+  */
+  @ApiModelProperty(example = "false", value = "etat de la partie")
+
+
+  public Boolean getPartieEstCommence() {
+    return partieEstCommence;
+  }
+
+  public void setPartieEstCommence(Boolean partieEstCommence) {
+    this.partieEstCommence = partieEstCommence;
   }
 
 
@@ -193,12 +216,13 @@ public class ReponseSalon   {
         Objects.equals(this.gameMode, reponseSalon.gameMode) &&
         Objects.equals(this.idJoueur, reponseSalon.idJoueur) &&
         Objects.equals(this.pseudo, reponseSalon.pseudo) &&
-        Objects.equals(this.numJoueur, reponseSalon.numJoueur);
+        Objects.equals(this.numJoueur, reponseSalon.numJoueur) &&
+        Objects.equals(this.partieEstCommence, reponseSalon.partieEstCommence);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(idSalon, nomSalon, maxJoueurs, gameMode, idJoueur, pseudo, numJoueur);
+    return Objects.hash(idSalon, nomSalon, maxJoueurs, gameMode, idJoueur, pseudo, numJoueur, partieEstCommence);
   }
 
   @Override
@@ -213,6 +237,7 @@ public class ReponseSalon   {
     sb.append("    idJoueur: ").append(toIndentedString(idJoueur)).append("\n");
     sb.append("    pseudo: ").append(toIndentedString(pseudo)).append("\n");
     sb.append("    numJoueur: ").append(toIndentedString(numJoueur)).append("\n");
+    sb.append("    partieEstCommence: ").append(toIndentedString(partieEstCommence)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -7,9 +7,11 @@ package fr.memebattle.ressources.api;
 
 import fr.memebattle.ressources.modele.api.CreerSalon;
 import fr.memebattle.ressources.modele.api.RejoindreSalon;
+import fr.memebattle.ressources.modele.api.ReponseAttente;
 import fr.memebattle.ressources.modele.api.ReponseCodeSalon;
 import fr.memebattle.ressources.modele.api.ReponseErreur;
 import fr.memebattle.ressources.modele.api.ReponseSalon;
+import fr.memebattle.ressources.modele.api.RequeteJoueur;
 import io.swagger.annotations.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,7 +27,7 @@ import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-06-29T15:38:46.103042800-04:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-07-03T23:22:59.305186400-04:00[America/New_York]")
 @Validated
 @Api(value = "salon", description = "the salon API")
 public interface SalonApi {
@@ -43,7 +45,7 @@ public interface SalonApi {
         value = "/salon/commencer",
         consumes = { "application/json" }
     )
-    ResponseEntity<Void> commencerPartie(@ApiParam(value = "joueur qui lance la partie" ,required=true )  @Valid @RequestBody String commencerPartie);
+    ResponseEntity<Void> commencerPartie(@ApiParam(value = "joueur qui lance la partie" ,required=true )  @Valid @RequestBody RequeteJoueur commencerPartie);
 
 
     /**
@@ -66,7 +68,7 @@ public interface SalonApi {
     /**
      * POST /salon/quitterSalon : Quitter salon
      *
-     * @param leJoueurQuiQuitteLeSalon joueur qui quitte le salon (required)
+     * @param quitterSalon joueur qui quitte le salon (required)
      * @return le joueur quitte le salon (status code 200)
      */
     @ApiOperation(value = "Quitter salon", nickname = "quitterSalon", notes = "", tags={ "Salon", })
@@ -76,22 +78,22 @@ public interface SalonApi {
         value = "/salon/quitterSalon",
         consumes = { "application/json" }
     )
-    ResponseEntity<Void> quitterSalon(@ApiParam(value = "joueur qui quitte le salon" ,required=true )  @Valid @RequestBody String leJoueurQuiQuitteLeSalon);
+    ResponseEntity<Void> quitterSalon(@ApiParam(value = "joueur qui quitte le salon" ,required=true )  @Valid @RequestBody RequeteJoueur quitterSalon);
 
 
     /**
-     * GET /salon/listeAttente : Recuperer liste attente
+     * GET /salon/attente : Recuperer informations attente
      *
      * @return La liste de joueurs en attente (status code 200)
      */
-    @ApiOperation(value = "Recuperer liste attente", nickname = "recupererListeAttente", notes = "", response = String.class, responseContainer = "List", tags={ "Salon", })
+    @ApiOperation(value = "Recuperer informations attente", nickname = "recupererInfosAttente", notes = "", response = ReponseAttente.class, tags={ "Salon", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "La liste de joueurs en attente", response = String.class, responseContainer = "List") })
+        @ApiResponse(code = 200, message = "La liste de joueurs en attente", response = ReponseAttente.class) })
     @GetMapping(
-        value = "/salon/listeAttente",
+        value = "/salon/attente",
         produces = { "application/json" }
     )
-    ResponseEntity<List<String>> recupererListeAttente();
+    ResponseEntity<ReponseAttente> recupererInfosAttente();
 
 
     /**
